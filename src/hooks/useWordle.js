@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const useWordle = ({ solution }) => {
+const useWordle = (solution) => {
   const [turn, setTurn] = useState(0);
   const [currentGuess, setCurrentGuess] = useState("");
   const [guesses, setGuesses] = useState([]);
@@ -8,7 +8,27 @@ const useWordle = ({ solution }) => {
   const [isCorrect, setIsCorrect] = useState(false);
 
   const formatGuess = () => {
-    console.log("Formatting the guess -", currentGuess);
+    let solutionArray = [...solution];
+    let formattedArray = [...currentGuess].map((l) => {
+      return { key: l, color: "grey" };
+    });
+
+    //find any green letters
+    formattedArray.forEach((l, i) => {
+      if (solutionArray[i] === l.key) {
+        formattedArray[i].color = "green";
+        solutionArray[i] = null;
+      }
+    });
+
+    //find any yellow letters
+    formattedArray.forEach((l, i) => {
+      if (solutionArray.includes(l.key) && l.color !== "green") {
+        formattedArray[i].color = "yellow";
+        solutionArray[solutionArray.indexOf(l.key)] = null;
+      }
+    });
+    return formattedArray;
   };
 
   const addNewGuess = () => {};
@@ -30,7 +50,10 @@ const useWordle = ({ solution }) => {
         console.log("pls enter 5 word");
         return;
       }
-      formatGuess();
+      //formatGuess();
+      const sample = formatGuess();
+      console.log(sample);
+      console.log(solution);
     }
     if (e.key === "Backspace") {
       setCurrentGuess((prev) => {
