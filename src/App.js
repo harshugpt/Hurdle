@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Wordle } from "./components/Wordle";
+import "./App.css";
 
 function App() {
   const [solution, setSolution] = useState(null);
