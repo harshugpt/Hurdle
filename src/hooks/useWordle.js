@@ -3,8 +3,8 @@ import React, { useState } from "react";
 const useWordle = (solution) => {
   const [turn, setTurn] = useState(0);
   const [currentGuess, setCurrentGuess] = useState("");
-  const [guesses, setGuesses] = useState([]);
-  const [history, setHistory] = useState(["harsh", "hello"]);
+  const [guesses, setGuesses] = useState([...Array(6)]);
+  const [history, setHistory] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
 
   const formatGuess = () => {
@@ -31,7 +31,23 @@ const useWordle = (solution) => {
     return formattedArray;
   };
 
-  const addNewGuess = () => {};
+  const addNewGuess = (formattedArray) => {
+    if (currentGuess === solution) {
+      setIsCorrect(true);
+    }
+    setGuesses((prevGuesses) => {
+      let newGuesses = [...prevGuesses];
+      newGuesses[turn] = formattedArray;
+      return newGuesses;
+    });
+    setHistory((prevHistory) => {
+      return [...prevHistory, currentGuess];
+    });
+    setTurn((prevTurn) => {
+      return prevTurn + 1;
+    });
+    setCurrentGuess("");
+  };
 
   const handleKeyup = (e) => {
     if (e.key === "Enter") {
@@ -51,9 +67,8 @@ const useWordle = (solution) => {
         return;
       }
       //formatGuess();
-      const sample = formatGuess();
-      console.log(sample);
-      console.log(solution);
+      const formatted = formatGuess();
+      addNewGuess(formatted);
     }
     if (e.key === "Backspace") {
       setCurrentGuess((prev) => {
