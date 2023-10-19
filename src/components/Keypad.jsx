@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const Keypad = () => {
+const Keypad = ({ usedKeys }) => {
   const [letters, setLetters] = useState(null);
   useEffect(() => {
     axios.get("http://localhost:3001/letters").then((res) => {
@@ -13,7 +13,12 @@ const Keypad = () => {
     <div className="keypad">
       {letters &&
         letters.map((l) => {
-          return <div key={l.key}>{l.key}</div>;
+          const color = usedKeys[l.key];
+          return (
+            <div key={l.key} className={color}>
+              {l.key}
+            </div>
+          );
         })}
     </div>
   );
