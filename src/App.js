@@ -12,7 +12,11 @@ function App() {
       .then((res) => {
         console.log(res);
       });*/
-    axios.get("http://localhost:3001/solutions").then((res) => {
+    const apiUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://hurdle-six.vercel.app/api"
+        : "http://localhost:3001";
+    axios.get("${apiUrl}/solutions").then((res) => {
       const response = res.data;
       const randomSolution =
         response[Math.floor(Math.random() * response.length)];

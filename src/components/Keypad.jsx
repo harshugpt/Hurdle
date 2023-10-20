@@ -4,7 +4,11 @@ import React, { useEffect, useState } from "react";
 const Keypad = ({ usedKeys }) => {
   const [letters, setLetters] = useState(null);
   useEffect(() => {
-    axios.get("http://localhost:3001/letters").then((res) => {
+    const apiUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://hurdle-six.vercel.app/api"
+        : "http://localhost:3001";
+    axios.get("${apiUrl}/letters").then((res) => {
       const response = res.data;
       setLetters(response);
     }, []);
