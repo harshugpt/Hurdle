@@ -12,8 +12,7 @@ function App() {
       .then((res) => {
         console.log(res);
       });*/
-    //const link = process.env.REACT_APP_API_URL;
-    axios.get("/api/solutions").then((res) => {
+    axios.get(process.env.REACT_APP_API_URL + "/solutions").then((res) => {
       const response = res.data;
       const randomSolution =
         response[Math.floor(Math.random() * response.length)];

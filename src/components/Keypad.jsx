@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 const Keypad = ({ usedKeys }) => {
   const [letters, setLetters] = useState(null);
   useEffect(() => {
-    axios.get("/api/letters").then((res) => {
+    axios.get(process.env.REACT_APP_API_URL + "/letters").then((res) => {
       const response = res.data;
       setLetters(response);
     });

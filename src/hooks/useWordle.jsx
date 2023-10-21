@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const useWordle = (solution) => {
   const [turn, setTurn] = useState(0);
@@ -86,7 +86,7 @@ const useWordle = (solution) => {
         return;
       }
       //check word is 5 char long
-      if (currentGuess.length != 5) {
+      if (currentGuess.length !== 5) {
         console.log("pls enter 5 word");
         return;
       }
