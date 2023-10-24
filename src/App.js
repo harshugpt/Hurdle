@@ -12,7 +12,9 @@ function App() {
       .then((res) => {
         console.log(res);
       });*/
-    axios.get(process.env.REACT_APP_API_URL + "/solutions").then((res) => {
+    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
+    const endpoint = `${apiUrl}/solutions`;
+    axios.get(endpoint).then((res) => {
       const response = res.data;
       const randomSolution =
         response[Math.floor(Math.random() * response.length)];
